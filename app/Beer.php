@@ -21,24 +21,14 @@ class Beer extends Model
     public function searchFilter($query, $request)
     {
         if ($request->get('type_id') != null) {
-            $queryType = $query->where('type_id', $request->get('type_id'));
+            $query = $query->where('type_id', $request->get('type_id'));
         }
 
-        if (isset($queryType)) {
-            if ($request->get('manufacturer_id') != null) {
-                $queryType = $queryType->where('manufacturer_id', $request->get('manufacturer_id'));
-            }
-        } else {
-            if ($request->get('manufacturer_id') != null) {
-                $queryType = $query->where('manufacturer_id', $request->get('manufacturer_id'));
-            }
+        if ($request->get('manufacturer_id') != null) {
+            $query = $query->where('manufacturer_id', $request->get('manufacturer_id'));
         }
 
-        if (isset($queryType)) {
-            return $queryType;
-        } else {
-            return $query;
-        }
+        return $query;
     }
 
 }
